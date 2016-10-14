@@ -1,7 +1,9 @@
 package com.mphantom.autotext.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.mphantom.autotext.App;
 import com.mphantom.autotext.ExpandModle;
@@ -14,6 +16,7 @@ import java.util.List;
  */
 
 public class Expandhelper {
+    public static final String TAG = Expandhelper.class.getName();
     private SQLiteDatabase database;
     private ExpandDb dbhelper;
     public static Expandhelper instance;
@@ -46,10 +49,11 @@ public class Expandhelper {
                 expandModles.add(item);
             } while (cursor.moveToNext());
         }
-        cursor.close();
+//        cursor.close();
 //        if (database != null && database.isOpen()) {
 //            database.close();
 //        }
+        Log.d(TAG, "expandsize==" + expandModles.size());
         return expandModles;
     }
 
@@ -68,6 +72,17 @@ public class Expandhelper {
         return expand;
     }
 
+
+    public void insertExpand(ExpandModle modle) {
+        database = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("key", modle.getKey());
+        values.put("value", modle.getValue());
+
+        long newRowId;
+        newRowId = database.insert("expand", null, values);
+        Log.d(TAG, "rowId==" + newRowId);
+    }
 
     public void closeDB() {
         if (database != null && database.isOpen()) {
