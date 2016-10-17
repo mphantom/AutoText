@@ -3,4 +3,11 @@
     <string name="key">key</string>
     <string name="value">value</string>
     <string name="submit">submit</string>
+    <string name="back_button_label">back</string>
+    <string name="skip_button_label">skip</string>
+    <string name="next_button_label">next</string>
+    <string name="settings_safetylegal_activity_loading">Loading\u2026</string>
+    <string name="help_uri_default" translatable="false"></string>
+    <string name="okay">OK</string>
+    <string name="help_feedback_label">help feedback</string>
 </resources>

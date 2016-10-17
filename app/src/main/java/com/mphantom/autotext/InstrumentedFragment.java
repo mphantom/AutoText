@@ -1,14 +1,14 @@
 package com.mphantom.autotext;
 
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v14.preference.PreferenceFragment;
 import android.util.Log;
 
 /**
  * Created by wushaorong on 16-10-17.
  */
 
-public abstract class InstrumentedFragment extends PreferenceFragmentCompat {
+public abstract class InstrumentedFragment extends PreferenceFragment {
 
     public static final int UNDECLARED = 100000;
 
