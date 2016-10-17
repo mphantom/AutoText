@@ -29,7 +29,8 @@
                 android:resource="@xml/detection_service_config" />
         </service>
 
-        <activity android:name=".ExpandActivity"></activity>
+        <activity android:name=".ExpandActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

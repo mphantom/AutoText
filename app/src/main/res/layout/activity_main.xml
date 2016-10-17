@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_margin="@dimen/fab_margin"
         android:background="@drawable/fab_background"
         android:elevation="@dimen/fab_elevation"
         android:src="@drawable/fab_add"
