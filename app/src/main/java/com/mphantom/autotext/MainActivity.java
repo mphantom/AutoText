@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mphantom.autotext.database.Expandhelper;
+import com.mphantom.autotext.perference.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        startActivity(new Intent(MainActivity.this, SettingsActivity.class));
     }
 
     @Override

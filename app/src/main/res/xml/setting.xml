@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/app_name">
+        <CheckBoxPreference
+            android:key="checkbox_preference"
+            android:title="@string/auto_fill_text" />
+        <CheckBoxPreference
+            android:dependency="checkbox_preference"
+            android:key="edittext_preference"
+            android:summary="summary_edittext_preference"
+            android:title="title_edittext_preference" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/about">
+        <Preference
+            android:key="@string/version"
+            android:summary="1.0.0"
+            android:title="@string/version" />
+        <Preference
+            android:key="@string/rate_app"
+            android:summary="help us in google play"
+            android:title="@string/rate_app" />
+        <Preference
+            android:key="@string/reset"
+            app:title="@string/reset" />
+        <Preference
+            android:key="@string/auther"
+            android:summary="mphantom"
+            android:title="@string/auther" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

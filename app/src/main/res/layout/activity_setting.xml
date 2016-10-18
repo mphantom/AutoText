@@ -4,6 +4,9 @@
     android:id="@+id/activity_setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mphantom.autotext.SettingsActivity">
-
+    tools:context="com.mphantom.autotext.perference.SettingsActivity">
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.mphantom.autotext.perference.SettingFragment"/>
 </RelativeLayout>

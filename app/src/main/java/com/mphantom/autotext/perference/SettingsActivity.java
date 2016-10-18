@@ -1,7 +1,9 @@
-package com.mphantom.autotext;
+package com.mphantom.autotext.perference;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.mphantom.autotext.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

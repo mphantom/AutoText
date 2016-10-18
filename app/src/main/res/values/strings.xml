@@ -10,4 +10,12 @@
     <string name="help_uri_default" translatable="false"></string>
     <string name="okay">OK</string>
     <string name="help_feedback_label">help feedback</string>
+
+    <string name="about">about</string>
+    <string name="auto_fill_text">auto fill text</string>
+    <string name="open_source_license">open source_license</string>
+    <string name="auther">auther</string>
+    <string name="rate_app">rate app</string>
+    <string name="version">version</string>
+    <string name="reset">reset</string>
 </resources>
