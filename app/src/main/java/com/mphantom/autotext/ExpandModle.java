@@ -1,10 +1,13 @@
 package com.mphantom.autotext;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by wushaorong on 16-10-14.
  */
 
-public class ExpandModle {
+public class ExpandModle implements Parcelable {
     private String key;
     private String value;
 
@@ -31,4 +34,32 @@ public class ExpandModle {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.key);
+        dest.writeString(this.value);
+    }
+
+    protected ExpandModle(Parcel in) {
+        this.key = in.readString();
+        this.value = in.readString();
+    }
+
+    public static final Parcelable.Creator<ExpandModle> CREATOR = new Parcelable.Creator<ExpandModle>() {
+        @Override
+        public ExpandModle createFromParcel(Parcel source) {
+            return new ExpandModle(source);
+        }
+
+        @Override
+        public ExpandModle[] newArray(int size) {
+            return new ExpandModle[size];
+        }
+    };
 }

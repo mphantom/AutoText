@@ -1,15 +1,13 @@
 package com.mphantom.autotext;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.mphantom.autotext.database.Expandhelper;
-import com.mphantom.autotext.perference.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +28,14 @@ public class MainActivity extends AppCompatActivity {
         list = new ArrayList<>();
         adapter = new ExpandAdapter(list);
         recyclerView.setAdapter(adapter);
-//        list.add(new ExpandModle("key", "value"));
-//        list.add(new ExpandModle("key", "value"));
-//        list.add(new ExpandModle("key", "value"));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ExpandActivity.class));
-            }
+        adapter.setOnItemClickListener((v, postion) -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("expand", (Parcelable) v.getTag());
+            ExpandActivity.start(MainActivity.this, bundle);
         });
-
-        startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+        fab.setOnClickListener(v ->
+                ExpandActivity.start(MainActivity.this)
+        );
     }
 
     @Override

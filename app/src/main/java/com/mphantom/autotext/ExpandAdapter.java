@@ -15,8 +15,14 @@ import java.util.List;
 public class ExpandAdapter extends RecyclerView.Adapter<ExpandAdapter.ViewHolder> {
     private List<ExpandModle> expandList;
 
+    private OnItemClickListener onItemClickListener;
+
     public ExpandAdapter(List<ExpandModle> list) {
         this.expandList = list;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -29,6 +35,11 @@ public class ExpandAdapter extends RecyclerView.Adapter<ExpandAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvKey.setText(expandList.get(position).getKey());
         holder.tvValue.setText(expandList.get(position).getValue());
+        holder.itemView.setTag(expandList.get(position));
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null)
+                onItemClickListener.onItemClick(v, position);
+        });
     }
 
     @Override
