@@ -17,5 +17,7 @@
     <dimen name="tv_size">18sp</dimen>
     <dimen name="ll_padding">8dp</dimen>
     <dimen name="touch_raise">5dp</dimen>
+    <dimen name="et_margin">12dp</dimen>
+    <dimen name="text_input_layout_margin">8dp</dimen>
 
 </resources>

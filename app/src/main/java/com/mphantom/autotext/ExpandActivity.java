@@ -4,13 +4,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.mphantom.autotext.database.Expandhelper;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ExpandActivity extends AppCompatActivity {
-    EditText etKey, etValue;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.et_key)
+    EditText etKey;
+    @BindView(R.id.et_value)
+    EditText etValue;
+    @BindView(R.id.btn_submit)
     Button btnSubmit;
 
     public static void start(Context context) {
@@ -28,16 +40,34 @@ public class ExpandActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expand);
-        ExpandModle expandModle = getIntent().getExtras().getParcelable("expand");
-        etKey = (EditText) findViewById(R.id.et_key);
-        etValue = (EditText) findViewById(R.id.et_value);
-        btnSubmit = (Button) findViewById(R.id.btn_submit);
-        btnSubmit.setOnClickListener(v -> {
-            Expandhelper.getInstance()
-                    .insertExpand(new ExpandModle("wushaorong", "thanks"));
-            finish();
-        });
-        etKey.setText(expandModle.getKey());
-        etValue.setText(expandModle.getValue());
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
+        initWithParams();
+    }
+
+    @OnClick(R.id.btn_submit)
+    public void submit() {
+        if (TextUtils.isEmpty(etKey.getText().toString().trim())) {
+            return;
+        }
+        if (TextUtils.isEmpty(etValue.getText().toString().trim())) {
+            return;
+        }
+        Expandhelper.getInstance()
+                .insertExpand(new ExpandModle(etKey.getText().toString(),
+                        etValue.getText().toString()));
+        finish();
+    }
+
+    private void initWithParams() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            ExpandModle expandModle = bundle.getParcelable("expand");
+            etKey.setText(expandModle.getKey());
+            etValue.setText(expandModle.getValue());
+        }
     }
 }
