@@ -19,4 +19,8 @@
     <string name="version">version</string>
     <string name="reset">reset</string>
     <string name="search">search</string>
+    <string name="change">change</string>
+    <string name="accessibility_description">accessibility description</string>
+    <string name="auto_text_helper">Auto Helper</string>
+    <string name="clipboard">clip</string>
 </resources>

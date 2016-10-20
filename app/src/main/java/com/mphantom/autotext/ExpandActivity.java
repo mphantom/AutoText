@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -42,14 +43,17 @@ public class ExpandActivity extends AppCompatActivity {
         setContentView(R.layout.activity_expand);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.change);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            toolbar.setNavigationOnClickListener(v -> finish());
+        }
         initWithParams();
     }
 
     @OnClick(R.id.btn_submit)
-    public void submit() {
+    public void submit(View view) {
         if (TextUtils.isEmpty(etKey.getText().toString().trim())) {
             return;
         }
