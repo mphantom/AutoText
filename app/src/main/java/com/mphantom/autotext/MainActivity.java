@@ -1,9 +1,13 @@
 package com.mphantom.autotext;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +19,7 @@ import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 
 import com.mphantom.autotext.database.Expandhelper;
+import com.mphantom.autotext.perference.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     List<ExpandModle> list;
     FloatingActionButton fab;
     SearchView searchView;
+    NavigationView navigationView;
+//    ImageView imgNavMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.getHeaderView(0).findViewById(R.id.img_navigate_menu)
+                .setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
         adapter = new ExpandAdapter(list);
@@ -48,8 +58,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         fab.setOnClickListener(v ->
                 ExpandActivity.start(MainActivity.this)
         );
-
-        checkAccessibilityenable();
+        if (!checkAccessibilityenable()) {
+            Snackbar.make(this.findViewById(R.id.activity_main),
+                    R.string.please_open_accessbility, Snackbar.LENGTH_INDEFINITE).setAction(R.string.setting,
+                    v -> startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), 0))
+                    .show();
+        }
     }
 
 
@@ -75,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-
         return false;
     }
 

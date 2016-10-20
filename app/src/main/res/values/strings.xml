@@ -23,4 +23,6 @@
     <string name="accessibility_description">accessibility description</string>
     <string name="auto_text_helper">Auto Helper</string>
     <string name="clipboard">clip</string>
+    <string name="please_open_accessbility">please open accessbility</string>
+    <string name="setting">setting</string>
 </resources>
