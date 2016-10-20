@@ -16,6 +16,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.accessibility.AccessibilityManager;
 
 import com.mphantom.autotext.database.Expandhelper;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     FloatingActionButton fab;
     SearchView searchView;
     NavigationView navigationView;
+    SubMenu subMenu;
 //    ImageView imgNavMenu;
 
     @Override
@@ -45,6 +47,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.getHeaderView(0).findViewById(R.id.img_navigate_menu)
                 .setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
+//        navigationView.getMenu().add(R.id.group_type,Menu.NONE,Menu.NONE,"test");
+//        navigationView.getMenu()
+        subMenu = navigationView.getMenu().addSubMenu(R.string.custom);
+//        subMenu.setGroupCheckable();
+        addMenuItem("gold");
+        addMenuItem("google");
+        addMenuItem("ithome");
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
         adapter = new ExpandAdapter(list);
@@ -108,5 +118,20 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         }
         return false;
+    }
+
+    private void addMenuItem(String title) {
+        subMenu.add(title).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                item.setChecked(true);
+                select(title);
+                return true;
+            }
+        });
+    }
+
+    private void select(String packagename) {
+
     }
 }

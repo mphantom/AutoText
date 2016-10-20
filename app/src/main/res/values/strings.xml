@@ -25,4 +25,7 @@
     <string name="clipboard">clip</string>
     <string name="please_open_accessbility">please open accessbility</string>
     <string name="setting">setting</string>
+    <string name="all">all</string>
+    <string name="add">add</string>
+    <string name="custom">costom</string>
 </resources>

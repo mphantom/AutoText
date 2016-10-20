@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group_type"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_all"
+            android:checked="true"
+            android:icon="@android:drawable/ic_secure"
+            android:title="@string/all" />
+    </group>
+    <group
+        android:id="@+id/group_add"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navdrawer_item_settings"
+            android:icon="@android:drawable/ic_menu_add"
+            android:title="@string/add" />
 
+    </group>
 </menu>
