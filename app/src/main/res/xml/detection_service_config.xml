@@ -7,4 +7,3 @@
     android:description="@string/accessibility_description"
     android:notificationTimeout="100"
     android:settingsActivity="com.mphantom.autotext.perference.SettingsActiivty" />
-    <!--android:packageNames="com.mphantom.autotext"-->

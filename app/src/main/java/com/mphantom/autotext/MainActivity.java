@@ -1,5 +1,6 @@
 package com.mphantom.autotext;
 
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.accessibility.AccessibilityManager;
 
 import com.mphantom.autotext.database.Expandhelper;
 
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+    public final static String TAG = MainActivity.class.getName();
     RecyclerView recyclerView;
     ExpandAdapter adapter;
     Toolbar toolbar;
@@ -45,7 +48,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         fab.setOnClickListener(v ->
                 ExpandActivity.start(MainActivity.this)
         );
+
+        checkAccessibilityenable();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,6 +81,19 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    private boolean checkAccessibilityenable() {
+        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
+//        boolean enable = am.isEnabled();
+//        boolean touchEnabled = am.isTouchExplorationEnabled();
+        List<AccessibilityServiceInfo> list = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
+        for (AccessibilityServiceInfo info : list) {
+            if (info.getId().equals("com.mphantom.autotext/.DetectService")) {
+                return true;
+            }
+        }
         return false;
     }
 }
