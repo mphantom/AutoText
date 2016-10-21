@@ -28,4 +28,6 @@
     <string name="all">all</string>
     <string name="add">add</string>
     <string name="custom">costom</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
 </resources>

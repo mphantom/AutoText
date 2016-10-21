@@ -10,6 +10,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     SearchView searchView;
     NavigationView navigationView;
     SubMenu subMenu;
+    DrawerLayout drawerLayout;
 //    ImageView imgNavMenu;
 
     @Override
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigation);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawLayout);
         navigationView.getHeaderView(0).findViewById(R.id.img_navigate_menu)
                 .setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
         subMenu = navigationView.getMenu()
@@ -57,7 +61,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return false;
+                item.setCheckable(true);
+                item.setChecked(true);
+                return true;
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -79,6 +85,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     v -> startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), 0))
                     .show();
         }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_action_toolbar);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+        drawerLayout.addDrawerListener(new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close));
+
+
     }
 
 
