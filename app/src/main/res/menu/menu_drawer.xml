@@ -9,13 +9,22 @@
             android:icon="@android:drawable/ic_secure"
             android:title="@string/all" />
     </group>
-    <group
-        android:id="@+id/group_add"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/navdrawer_item_settings"
-            android:icon="@android:drawable/ic_menu_add"
-            android:title="@string/add" />
+    <item android:title="@string/add">
+        <menu>
+            <item
+                android:id="@+id/navdrawer_item_settings"
+                android:icon="@android:drawable/ic_menu_add"
+                android:title="@string/add" />
 
-    </group>
+        </menu>
+    </item>
+    <!--<item-->
+    <!--android:id="@+id/navigation_item_custom"-->
+    <!--android:title="@string/custom">-->
+    <!--<menu>-->
+    <!--<group-->
+    <!--android:id="@+id/group_coustom"-->
+    <!--android:checkableBehavior="single"></group>-->
+    <!--</menu>-->
+    <!--</item>-->
 </menu>

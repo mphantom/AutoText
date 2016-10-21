@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -47,14 +48,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.getHeaderView(0).findViewById(R.id.img_navigate_menu)
                 .setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
-//        navigationView.getMenu().add(R.id.group_type,Menu.NONE,Menu.NONE,"test");
-//        navigationView.getMenu()
-        subMenu = navigationView.getMenu().addSubMenu(R.string.custom);
-//        subMenu.setGroupCheckable();
+        subMenu = navigationView.getMenu()
+                .addSubMenu(R.string.custom);
+        subMenu.setGroupCheckable(0, true, true);
         addMenuItem("gold");
         addMenuItem("google");
         addMenuItem("ithome");
-
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                return false;
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
         adapter = new ExpandAdapter(list);
@@ -124,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         subMenu.add(title).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                item.setCheckable(true);
                 item.setChecked(true);
                 select(title);
                 return true;
