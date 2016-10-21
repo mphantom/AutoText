@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/compose_icon"
+        android:shortcutDisabledMessage="@string/add_auto_text"
+        android:shortcutId="add_auto_text"
+        android:shortcutLongLabel="@string/add_auto_text"
+        android:shortcutShortLabel="@string/add_auto_text"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mphantom.autotext.ExpandActivity"
+            android:targetPackage="com.mphantom.autotext" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list is what the user sees when they
+             launch this shortcut. -->
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <!-- Specify more shortcuts here. -->
+</shortcuts>
+
