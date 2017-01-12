@@ -1,6 +1,6 @@
 package com.mphantom.autotext;
 
-import android.accessibilityservice.AccessibilityServiceInfo;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -20,38 +20,55 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.accessibility.AccessibilityManager;
+import android.view.View;
 
 import com.mphantom.autotext.database.Expandhelper;
 import com.mphantom.autotext.perference.SettingsActivity;
+import com.mphantom.autotext.utils.Accessibility;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     public final static String TAG = MainActivity.class.getName();
+    @BindView(R.id.recycler)
     RecyclerView recyclerView;
-    ExpandAdapter adapter;
-    Toolbar toolbar;
-    List<ExpandModle> list;
+    @BindView(R.id.fab)
     FloatingActionButton fab;
-    SearchView searchView;
+    @BindView(R.id.navigation)
     NavigationView navigationView;
-    SubMenu subMenu;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.drawLayout)
     DrawerLayout drawerLayout;
+
+    SearchView searchView;
+    ExpandAdapter adapter;
+    List<ExpandModle> list;
+    SubMenu subMenu;
 //    ImageView imgNavMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        navigationView = (NavigationView) findViewById(R.id.navigation);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawLayout);
+        ButterKnife.bind(this);
+        initViews();
+        if (!Accessibility.checkAccessibilityenable(this)) {
+            Snackbar.make(this.findViewById(R.id.coordinator_layout),
+                    R.string.please_open_accessbility, Snackbar.LENGTH_INDEFINITE).setAction(R.string.setting,
+                    v -> startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), 0))
+                    .show();
+        }
+    }
+
+    private void initViews() {
         navigationView.getHeaderView(0).findViewById(R.id.img_navigate_menu)
-                .setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
+                .setOnClickListener(v -> SettingsActivity.start(MainActivity.this));
         subMenu = navigationView.getMenu()
                 .addSubMenu(R.string.custom);
         subMenu.setGroupCheckable(0, true, true);
@@ -71,20 +88,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         adapter = new ExpandAdapter(list);
         recyclerView.setAdapter(adapter);
         setSupportActionBar(toolbar);
-        adapter.setOnItemClickListener((v, postion) -> {
+        adapter.setOnItemClickListener((v, position) -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("expand", (Parcelable) v.getTag());
             ExpandActivity.start(MainActivity.this, bundle);
         });
-        fab.setOnClickListener(v ->
-                ExpandActivity.start(MainActivity.this)
-        );
-        if (!checkAccessibilityenable()) {
-            Snackbar.make(this.findViewById(R.id.activity_main),
-                    R.string.please_open_accessbility, Snackbar.LENGTH_INDEFINITE).setAction(R.string.setting,
-                    v -> startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), 0))
-                    .show();
-        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_action_toolbar);
 //        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -96,9 +104,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         drawerLayout.addDrawerListener(new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close));
 
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,19 +136,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return false;
     }
 
-    private boolean checkAccessibilityenable() {
-        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-//        boolean enable = am.isEnabled();
-//        boolean touchEnabled = am.isTouchExplorationEnabled();
-        List<AccessibilityServiceInfo> list = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
-        for (AccessibilityServiceInfo info : list) {
-            if (info.getId().equals("com.mphantom.autotext/.DetectService")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void addMenuItem(String title) {
         subMenu.add(title).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -157,5 +150,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     private void select(String packagename) {
 
+    }
+
+    @OnClick(R.id.fab)
+    void addNewExpandItem(View view) {
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, view, view.getTransitionName());
+        ExpandActivity.start(this, null, options.toBundle());
     }
 }

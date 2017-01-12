@@ -32,6 +32,7 @@
     <string name="drawer_close">drawer close</string>
 
     <string name="add_auto_text">add auto text</string>
+    <string name="fab_transition_name">fab_transition</string>
 </resources>
 
 

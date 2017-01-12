@@ -6,7 +6,7 @@ import io.realm.RealmObject;
  * Created by mphantom on 17/1/12.
  */
 
-public class ExpandModle extends RealmObject {
+public class ExpandModel extends RealmObject {
     private String key;
     private String value;
 
